@@ -13,9 +13,9 @@ class SiteManager(models.Manager[Site]):
 class Site(models.Model):
     objects: ClassVar[SiteManager]
 
-    domain: str
-    name: str
-    id: int
+    domain: Any
+    name: Any
+    id: Any
     def natural_key(self) -> tuple[str]: ...
 
 def clear_site_cache(sender: type[Site], **kwargs: Any) -> None: ...
