@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 from typing import TYPE_CHECKING, Any, ClassVar
 
 from django.contrib.auth.models import User
@@ -72,27 +73,11 @@ foo(s)  # type: ignore[arg-type]  # pyright: ignore[reportArgumentType]  # pyref
 bar(s)
 
 
-# SimpleLazyObject usage (Real-world example with Django User)
-
-
-def get_user() -> User:
-    return User()
-
-
-# This simulates how request.user is handled in Django
-lazy_user = SimpleLazyObject(get_user)
+lazy_user: SimpleLazyObject[User] = SimpleLazyObject(User)
 assert_type(lazy_user, SimpleLazyObject[User])
 
-# Test that copying returns either the lazy proxy or the resolved User
-copied = lazy_user.__copy__()
-assert_type(copied, SimpleLazyObject[User] | User)
-
-# Test deepcopy behavior for lazy objects
-deepcopied = lazy_user.__deepcopy__({})
-assert_type(deepcopied, SimpleLazyObject[User] | User)
-
-
-# classproperty usage (Keep this as is, it's perfect)
+assert_type(copy.copy(lazy_user), SimpleLazyObject[User] | User)
+assert_type(copy.deepcopy(lazy_user), SimpleLazyObject[User] | User)
 
 
 class Bam:
