@@ -76,8 +76,8 @@ bar(s)
 lazy_user: SimpleLazyObject[User] = SimpleLazyObject(User)
 assert_type(lazy_user, SimpleLazyObject[User])
 
-assert_type(copy.copy(lazy_user), SimpleLazyObject[User] | User)
-assert_type(copy.deepcopy(lazy_user), SimpleLazyObject[User] | User)
+assert_type(copy.copy(lazy_user), SimpleLazyObject[User])
+assert_type(copy.deepcopy(lazy_user), SimpleLazyObject[User])
 
 
 class Bam:
